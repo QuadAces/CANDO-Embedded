@@ -172,8 +172,8 @@ void loop()
 
   /* ----------------------------- CHECK DISTANCE ----------------------------- */
 
-  // if distance is too far, end early
-  if (ultrasonic.dist() > 150) {
+  // if distance is too far, end early (15cm)
+  if (ultrasonic.dist() > 15) {
     return;
   }
 
@@ -181,6 +181,7 @@ void loop()
 
   // rotate servo
   servo.write(72);
+  delay(2000);
 
   // turn on flash
   digitalWrite(LED_PIN, HIGH);
@@ -197,6 +198,9 @@ void loop()
 
   // print image info
   Serial.printf("JPEG size: %d bytes. Width: %dpx. Height: %dpx.\n", camera.getSizeInBytes(), camera.resolution.getWidth(), camera.resolution.getHeight());
+
+  // some value
+  servo.write(0);
 
   /* -------------------------- POST IMAGE TO SERVER -------------------------- */
 

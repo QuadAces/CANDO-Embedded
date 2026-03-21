@@ -206,20 +206,11 @@ void loop()
 
   // upload (check timestamp of last scanned card to see if its worth it)
 
-  // attach header 
-  // HTTP_Data data;
-  // data.frame = camera.frame;
-  // if (difftime(last_scanned, time(0)) < 60) {
-  //   strcpy(data.uid, uid_string);
-  // }
-  // else {
-  //   data.uid[0], '\0';
-  // }
 
   HTTPClient http;
   http.begin(post_url);
   int httpCode = http.sendRequest("POST", camera.frame->buf, camera.frame->len);
-
+  
   if (httpCode > 0) {
     Serial.printf("[HTTP] POST... code: %d\n", httpCode);
     if (httpCode == HTTP_CODE_OK) {
@@ -232,7 +223,5 @@ void loop()
 
   http.end();
   
-  // consider that esp_camera_fb_return() might need to be called to return memory back
-  esp_camera_fb_return(camera.frame);
   delay(5000);
 }
